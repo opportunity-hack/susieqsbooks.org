@@ -5,8 +5,9 @@ const donationPerBook =
   parseInt(process.env.NEXT_PUBLIC_DONATION_AMOUNT_PER_BOOK, 10) || 10;
 
 export const metadata = {
-  title: "Sponsor a Kids' Coloring Book – Phoenix & Michigan Schools",
-  description: `For $${donationPerBook} a book, your business name and logo are printed in a coloring book created from local kids' art — sold at school fundraisers and tucked into comfort bags for children in crisis.`,
+  title: "Sponsor a Coloring Book",
+  description:
+    "For $10 a book, your business logo is printed in a coloring book made from local kids' art — sold at school fundraisers and tucked into comfort bags.",
   alternates: { canonical: "/sponsor" },
 };
 
