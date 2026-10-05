@@ -1,0 +1,61 @@
+---
+name: Deploy Frontend to Vercel
+
+# Production deploys for the Next.js frontend. The Vercel GitHub integration
+# stopped auto-deploying merges to main (prod served a stale deploy more than
+# 3 days after a merge), so this workflow deploys explicitly instead.
+# NOTE: if the Vercel Git integration is ever reconnected, disable ONE of the
+# two paths to avoid double deploys.
+#
+# Required repository secrets (Settings -> Secrets and variables -> Actions):
+#   VERCEL_TOKEN       - Vercel account token (Account Settings -> Tokens)
+#   VERCEL_ORG_ID      - from `vercel pull` output or Project -> Settings
+#   VERCEL_PROJECT_ID  - from `vercel pull` output or Project -> Settings
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "frontend/nextapp/**"
+      - "vercel.json"
+      - ".github/workflows/deploy-frontend.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-frontend-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend/nextapp
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      # NOTE: production env vars (NEXT_PUBLIC_API_URL, PayPal client ID, etc.)
+      # come from `vercel pull` below, which downloads the Vercel project's
+      # production environment. Do not override them here.
+      - name: Pull Vercel project settings
+        run: npx -y vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build for production
+        run: npx -y vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy to production
+        run: npx -y vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+---
