@@ -37,6 +37,12 @@ export default function SiteFooter() {
               <Link href="/#faq">Questions teachers ask us</Link>
             </li>
             <li>
+              <Link href="/locations">Where we work</Link>
+            </li>
+            <li>
+              <Link href="/resources">Fundraising resources</Link>
+            </li>
+            <li>
               <a
                 href="https://susieqskids.org/"
                 target="_blank"
