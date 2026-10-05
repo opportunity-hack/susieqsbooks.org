@@ -2,7 +2,7 @@ import styles from "./page.module.css";
 import AddSchoolForm from "@/components/add-school-form/AddSchoolForm";
 
 export const metadata = {
-  title: "Add Your School – Bring the Coloring Book Project to Your Classroom",
+  title: "Add Your School",
   description:
     "Don't see your school on our list? Tell us about it and we'll set it up — the project is free for schools, funded by local sponsors.",
   alternates: { canonical: "/add-school" },

@@ -2,7 +2,7 @@ import styles from "./page.module.css";
 import UploadDrawingForm from "@/components/upload-drawing-form/UploadDrawingForm";
 
 export const metadata = {
-  title: "Upload a Drawing – Turn Student Art into a Coloring Book Page",
+  title: "Upload Student Drawings",
   description:
     "Add a drawing to your school's coloring book in about two minutes. No accounts, first name only — every drawing becomes a real coloring-book page.",
   alternates: { canonical: "/drawings" },

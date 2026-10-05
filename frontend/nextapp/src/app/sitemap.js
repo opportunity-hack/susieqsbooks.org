@@ -1,9 +1,25 @@
 export default function sitemap() {
-  const base = "https://susieqsbooks.org";
+  const base = "https://www.susieqsbooks.org";
+  const lastModified = new Date();
   return [
-    { url: `${base}/`, changeFrequency: "monthly", priority: 1.0 },
-    { url: `${base}/drawings`, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${base}/sponsor`, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${base}/add-school`, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/`, lastModified, changeFrequency: "weekly", priority: 1.0 },
+    {
+      url: `${base}/drawings`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${base}/sponsor`,
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${base}/add-school`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
   ];
 }

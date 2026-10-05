@@ -28,3 +28,23 @@ body {
   outline: 3px solid #12b886;
   outline-offset: 2px;
 }
+
+/* Skip link: first tab stop, visible only on keyboard focus. */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: #2b2b33;
+  color: #fffbf3;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus-visible {
+  top: 1rem;
+  outline: 3px solid #12b886;
+  outline-offset: 2px;
+}

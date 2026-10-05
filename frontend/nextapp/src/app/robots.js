@@ -7,6 +7,6 @@ export default function robots() {
         disallow: ["/admin", "/dashboard"],
       },
     ],
-    sitemap: "https://susieqsbooks.org/sitemap.xml",
+    sitemap: "https://www.susieqsbooks.org/sitemap.xml",
   };
 }
