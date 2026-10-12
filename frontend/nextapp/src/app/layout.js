@@ -12,6 +12,10 @@ const fredoka = Fredoka({ subsets: ["latin"], variable: "--font-fredoka" });
 
 const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
+export const viewport = {
+  themeColor: "#12b886",
+};
+
 export const metadata = {
   metadataBase: new URL("https://www.susieqsbooks.org"),
   title: {
@@ -20,7 +24,6 @@ export const metadata = {
   },
   description:
     "A free classroom fundraiser: students' drawings become a printed coloring book, local sponsors cover the cost, and every book comforts a child in need.",
-  themeColor: "#12b886",
   openGraph: {
     type: "website",
     siteName: "Susie Q's Books",
