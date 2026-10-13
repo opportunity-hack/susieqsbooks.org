@@ -1,3 +1,5 @@
+import { FEELER_STATES } from "@/data/states";
+
 export default function sitemap() {
   const base = "https://www.susieqsbooks.org";
   const lastModified = new Date();
@@ -63,5 +65,13 @@ export default function sitemap() {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    // State feeler pages: one per state we do not serve yet. Their traffic
+    // and CTA clicks in GA4 decide where we expand next.
+    ...FEELER_STATES.map((state) => ({
+      url: `${base}/locations/${state.slug}`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    })),
   ];
 }
