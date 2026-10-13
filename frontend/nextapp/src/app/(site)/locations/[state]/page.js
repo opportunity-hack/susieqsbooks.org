@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ContentPage from "@/components/content-page/ContentPage";
-import { FEELER_STATES, getStateBySlug } from "@/data/states";
+import StateFeelerB from "@/components/state-feeler/StateFeelerB";
+import { FEELER_STATES, getStateBySlug, getVariant } from "@/data/states";
 
 // One static page per state we do not serve yet. These are demand probes:
 // they rank for "<state> school fundraiser" searches, and GA4 page views
@@ -27,6 +28,12 @@ export async function generateMetadata({ params }) {
 export default function StateFeelerPage({ params }) {
   const state = getStateBySlug(params.state);
   if (!state) notFound();
+
+  // A/B test: variant B states get the simple offer-first page with the
+  // on-page form; variant A states get the standard layout below.
+  if (getVariant(state) === "B") {
+    return <StateFeelerB state={state} />;
+  }
 
   const isArizona = state.slug === "arizona";
   const metros = state.metros.join(", ");

@@ -5,6 +5,7 @@ import {
   DEDICATED_STATE_SLUGS,
   REGIONS,
   getStateBySlug,
+  getVariant,
   statesByRegion,
 } from "@/data/states";
 
@@ -56,5 +57,28 @@ describe("statesByRegion", () => {
       0,
     );
     expect(total).toBe(STATES.length);
+  });
+});
+
+describe("A/B variant assignment", () => {
+  const armB = FEELER_STATES.filter((s) => getVariant(s) === "B");
+  const armA = FEELER_STATES.filter((s) => getVariant(s) === "A");
+
+  it("splits the feeler states evenly, 25 and 25", () => {
+    expect(armB).toHaveLength(25);
+    expect(armA).toHaveLength(25);
+  });
+
+  it("puts major-population states in both arms so neither arm is stacked", () => {
+    const big = ["California", "Texas", "Florida", "New York", "Pennsylvania", "Illinois"];
+    const inA = big.filter((name) => armA.some((s) => s.name === name));
+    const inB = big.filter((name) => armB.some((s) => s.name === name));
+    expect(inA.length).toBeGreaterThanOrEqual(3);
+    expect(inB.length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("defaults to A when no variant is set", () => {
+    expect(getVariant({ slug: "x" })).toBe("A");
+    expect(getVariant({ slug: "x", variant: "B" })).toBe("B");
   });
 });
