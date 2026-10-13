@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ContentPage from "@/components/content-page/ContentPage";
 import pageStyles from "@/components/content-page/content-page.module.css";
+import { REGIONS, statesByRegion } from "@/data/states";
 
 export const metadata = {
   title: "Where We Work",
@@ -48,6 +49,26 @@ export default function LocationsIndex() {
         exactly how we decide where to grow next. New areas open as soon as a
         few classrooms and a local sponsor are ready.
       </p>
+
+      <h2>Browse by state</h2>
+      <p>
+        Every state has a page, including the ones we have not reached yet.
+        Visits and school signups on those pages tell us where demand is
+        real, and that ranking decides where we expand next.
+      </p>
+      {REGIONS.map((region) => (
+        <div key={region}>
+          <h3>{region}</h3>
+          <p>
+            {statesByRegion(region).map((state, i) => (
+              <span key={state.slug}>
+                {i > 0 && " · "}
+                <Link href={`/locations/${state.slug}`}>{state.name}</Link>
+              </span>
+            ))}
+          </p>
+        </div>
+      ))}
     </ContentPage>
   );
 }
