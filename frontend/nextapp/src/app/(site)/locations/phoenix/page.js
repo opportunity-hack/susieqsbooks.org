@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ContentPage from "@/components/content-page/ContentPage";
+import { getProspects } from "@/data/prospects";
 
 export const metadata = {
   title: "Phoenix Schools Coloring Book Fundraiser",
@@ -60,6 +61,23 @@ export default function PhoenixPage() {
         you upload, pick <strong>&ldquo;My school isn&apos;t listed&rdquo;</strong>{" "}
         — that&apos;s how new campuses open here.
       </p>
+
+      <h2>Schools we are inviting this year</h2>
+      <p>
+        These Valley schools already run book fairs, read-a-thons, and fall
+        festivals, so we are inviting each of them to add a book their own
+        students illustrate. Every school below is already in the{" "}
+        <Link href="/drawings">upload form</Link>: pick your school and start
+        drawing.
+      </p>
+      <ul>
+        {getProspects("phoenix").map((school) => (
+          <li key={school.name}>
+            <strong>{school.name}</strong> ({school.city}) — {school.blurb}{" "}
+            <em>Best window: {school.window}.</em>
+          </li>
+        ))}
+      </ul>
 
       <h2>For Phoenix-area businesses</h2>
       <p>
