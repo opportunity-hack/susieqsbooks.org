@@ -2,6 +2,7 @@ import Link from "next/link";
 import ContentPage from "@/components/content-page/ContentPage";
 import pageStyles from "@/components/content-page/content-page.module.css";
 import { REGIONS, statesByRegion } from "@/data/states";
+import { getProspects, PROSPECT_STATE_NOTES } from "@/data/prospects";
 
 export const metadata = {
   title: "Where We Work",
@@ -49,6 +50,36 @@ export default function LocationsIndex() {
         exactly how we decide where to grow next. New areas open as soon as a
         few classrooms and a local sponsor are ready.
       </p>
+
+      <h2>Schools we are inviting in more states</h2>
+      <p>
+        We researched schools in seven more states that already run book
+        fairs, read-a-thons, or student book projects, and we are inviting
+        them for their next fair season. Every public elementary school in
+        these states (plus Arizona and Michigan) is also in the upload form
+        now, so any teacher there can start a book for their classroom.
+      </p>
+      {Object.values(PROSPECT_STATE_NOTES).map((note) => {
+        const schools = getProspects(note.slug).filter((p) => p.inForm);
+        return (
+          <div key={note.slug}>
+            <h3>
+              <Link href={`/locations/${note.slug}`}>{note.state}</Link>
+            </h3>
+            <p>
+              {note.season} {note.pitch}
+            </p>
+            <ul>
+              {schools.map((p) => (
+                <li key={p.name}>
+                  <strong>{p.name}</strong> ({p.city}) - next window:{" "}
+                  {p.window}
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      })}
 
       <h2>Browse by state</h2>
       <p>
