@@ -69,6 +69,100 @@ export const SCHOOL_GROUPS = [
       "Canyon Ridge School",
     ],
   },
+  // Researched Oct 2026: schools with public book-fair / read-a-thon /
+  // student-publishing evidence (see src/data/prospects.js). The picker also
+  // searches the full NCES school index via /api/schools, so any public
+  // elementary school in these states can be picked even if it is not below.
+  {
+    group: "Texas",
+    items: [
+      "Parker Elementary",
+      "McKamy Elementary",
+      "Heritage Rose Elementary",
+      "Red Oak Elementary",
+      "Samuel Walker Houston Elementary",
+      "Basswood Elementary",
+    ],
+  },
+  {
+    group: "Florida",
+    items: [
+      "Grady Elementary",
+      "Robert L. Stevenson Elementary",
+      "Mamie Agnes Jones Elementary",
+      "Discovery Elementary",
+      "Deerwood Elementary",
+      "Tangelo Park Elementary",
+      "Bellalago Charter Academy",
+      "Sheridan Park Elementary",
+      "Sullivan Partnership Elementary",
+    ],
+  },
+  {
+    group: "Illinois",
+    items: [
+      "Western Avenue Elementary",
+      "Edward J. Tobin Elementary",
+      "Walt Disney Magnet Elementary",
+      "A.N. Pritzker Elementary",
+      "Henking Elementary",
+      "Naper Elementary",
+      "Spring Grove Elementary",
+      "Ravinia Elementary",
+    ],
+  },
+  {
+    group: "Ohio",
+    items: [
+      "Summit Academy Elementary – Columbus",
+      "Hyde Park School",
+      "Avon East Elementary",
+      "Pickerington Elementary",
+      "Independence Primary School",
+      "Knollwood Elementary",
+      "Urbana Elementary",
+      "Whitehouse Primary",
+      "Endeavor Elementary",
+      "Denison Elementary",
+    ],
+  },
+  {
+    group: "Georgia",
+    items: [
+      "Morningside Elementary",
+      "Virginia-Highland Elementary",
+      "E. Rivers Elementary",
+      "Fifth Avenue Upper Elementary",
+      "Bleckley Primary School",
+      "Green Acres Elementary",
+    ],
+  },
+  {
+    group: "North Carolina",
+    items: [
+      "Farmington Woods Magnet Elementary",
+      "Weatherstone Elementary",
+      "Pleasant Grove Elementary",
+      "Mills Park Elementary",
+      "Rogers Lane Elementary",
+      "Green Hope Elementary",
+      "Green Elementary",
+      "Billingsville-Cotswold Elementary",
+      "Norris S. Childers Elementary",
+      "Mint Hill Elementary",
+    ],
+  },
+  {
+    group: "Indiana",
+    items: [
+      "Smoky Row Elementary",
+      "Cherry Tree Elementary",
+      "College Wood Elementary",
+      "South Central Elementary",
+      "Washington Elementary",
+      "Flint Lake Elementary",
+    ],
+  },
 ];
 
 export const SCHOOL_NOT_LISTED = "My school isn't listed";

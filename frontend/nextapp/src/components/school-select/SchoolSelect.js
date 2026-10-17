@@ -1,20 +1,51 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { Select, Text, TextInput } from "@mantine/core";
 import { SCHOOL_GROUPS, SCHOOL_NOT_LISTED } from "@/data/schools";
 import { trackSchoolNotListed } from "@/lib/analytics";
 
-const selectData = [
-  ...SCHOOL_GROUPS,
-  { group: "Somewhere else?", items: [SCHOOL_NOT_LISTED] },
-];
+const somewhereElse = {
+  group: "Somewhere else?",
+  items: [SCHOOL_NOT_LISTED],
+};
+const curatedData = [...SCHOOL_GROUPS, somewhereElse];
 
 // Emits a single school string to the parent: either a listed school/district
 // or whatever the family types in the escape hatch.
+//
+// The dropdown starts with the curated groups (partner schools, districts,
+// and the researched book-fair schools). Typing 2+ characters searches the
+// full NCES index for the nine covered states via /api/schools, so any
+// public elementary school there can be picked even if it is not curated.
 export default function SchoolSelect({ onChange, error, size = "lg" }) {
   const [choice, setChoice] = useState(null);
   const [customSchool, setCustomSchool] = useState("");
+  const [data, setData] = useState(curatedData);
+  const requestRef = useRef(0);
+  const timerRef = useRef(null);
+
+  const handleSearchChange = (term) => {
+    const q = (term || "").trim();
+    if (timerRef.current) window.clearTimeout(timerRef.current);
+    if (q.length < 2) {
+      requestRef.current += 1;
+      setData(curatedData);
+      return;
+    }
+    timerRef.current = window.setTimeout(() => {
+      const id = ++requestRef.current;
+      fetch(`/api/schools?q=${encodeURIComponent(q)}`)
+        .then((res) => res.json())
+        .then(({ groups }) => {
+          if (requestRef.current !== id) return;
+          setData([...(groups || []), somewhereElse]);
+        })
+        .catch(() => {
+          if (requestRef.current === id) setData(curatedData);
+        });
+    }, 250);
+  };
 
   const handleChoice = (value) => {
     setChoice(value);
@@ -36,15 +67,16 @@ export default function SchoolSelect({ onChange, error, size = "lg" }) {
     <>
       <Select
         label="School"
-        description="Which school's book is this drawing for?"
+        description="Start typing your school's name - the list covers public elementary schools across AZ, MI, TX, FL, IL, OH, GA, NC, and IN."
         placeholder="Pick your school"
         size={size}
         radius="md"
         searchable
         nothingFoundMessage={`Can't find it? Choose "${SCHOOL_NOT_LISTED}"`}
-        data={selectData}
+        data={data}
         value={choice}
         onChange={handleChoice}
+        onSearchChange={handleSearchChange}
         error={choice === SCHOOL_NOT_LISTED ? undefined : error}
         checkIconPosition="right"
       />
