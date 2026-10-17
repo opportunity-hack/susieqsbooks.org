@@ -6,7 +6,7 @@ import pageStyles from "@/components/content-page/content-page.module.css";
 export const metadata = {
   title: "Coloring Book Fundraiser for Schools",
   description:
-    "How a coloring book fundraiser works: students draw, their art becomes a printed book, local sponsors cover costs. Free guide for teachers and PTA groups.",
+    "How a coloring book fundraiser works: students draw, their art becomes a printed book, and sponsors cover the printing costs, so the school pays nothing.",
   alternates: { canonical: "/resources/coloring-book-fundraiser" },
 };
 
@@ -37,6 +37,21 @@ const FAQS = [
     question: "Is student information kept private?",
     answer:
       "Yes. Drawings are uploaded with a first name only (and even that is optional). There are no student accounts and no contact information is collected from children.",
+  },
+  {
+    question: "When is the best time of year for a coloring book fundraiser?",
+    answer:
+      "Fall is the biggest window: September through November, when schools run book fairs and fall festivals. A coloring book pairs naturally with either. The second window is February and March, around Read Across America and Michigan's March is Reading Month. Start drawing about a month before the event where you want finished books.",
+  },
+  {
+    question: "How much money can a school raise?",
+    answer:
+      "It depends on how many copies sell and the price your school sets. Because sponsors already paid for printing, the school keeps nearly everything it takes in, and families are buying a book their own child helped create, which is a much easier yes than a catalog of products.",
+  },
+  {
+    question: "How is this different from a school book fair?",
+    answer:
+      "A book fair sells other publishers' books and the school keeps a percentage. In a coloring book fundraiser the book is your students' own art, local sponsors cover the printing, and the school keeps nearly all of the proceeds. Many schools run both: the fair for reading material, the coloring book for fundraising.",
   },
 ];
 
@@ -124,6 +139,25 @@ export default function ColoringBookFundraiserGuide() {
             fundraiser.
           </li>
         </ul>
+
+        <h2>When to run a coloring book fundraiser</h2>
+        <p>
+          Timing decides how easy this is. <strong>Fall (September to
+          November)</strong> is peak fundraiser season: schools are already
+          running book fairs and fall festivals, and a student-made coloring
+          book slots into either as the keepsake families take home. That is
+          the rhythm our{" "}
+          <Link href="/locations/phoenix">Phoenix-area schools</Link> follow.
+        </p>
+        <p>
+          The second window is <strong>February and March</strong>, built
+          around Read Across America and, in Michigan, March is Reading
+          Month, when schools run reading challenges and book fairs. Our{" "}
+          <Link href="/locations/michigan">Michigan schools</Link> draw in
+          January and February so books are ready for March. Either way,
+          start about a month ahead: classrooms need one to two weeks to
+          draw and upload, and the rest is production.
+        </p>
 
         <h2>Tips for a great classroom book</h2>
         <ul>

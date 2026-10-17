@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ContentPage from "@/components/content-page/ContentPage";
+import { getProspects } from "@/data/prospects";
 
 export const metadata = {
   title: "Michigan Schools Coloring Book Fundraiser",
@@ -58,6 +59,24 @@ export default function MichiganPage() {
         </a>
         .
       </p>
+
+      <h2>Schools we are inviting for March is Reading Month</h2>
+      <p>
+        Macomb County schools run their book fairs in March, during
+        Michigan&apos;s March is Reading Month. These schools already run
+        fairs, reading-month programs, or student publishing, so we are
+        inviting each of them to add a coloring book their own students
+        illustrate. Drawing in January and February puts finished books in
+        hands for March.
+      </p>
+      <ul>
+        {getProspects("michigan").map((school) => (
+          <li key={school.name}>
+            <strong>{school.name}</strong> ({school.city}) — {school.blurb}{" "}
+            <em>Best window: {school.window}.</em>
+          </li>
+        ))}
+      </ul>
 
       <h2>Bring it to your school</h2>
       <p>

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import ContentPage from "@/components/content-page/ContentPage";
+import JsonLd from "@/components/JsonLd";
+import pageStyles from "@/components/content-page/content-page.module.css";
 
 export const metadata = {
   title: "12 No-Cost School Fundraiser Ideas",
@@ -72,9 +74,46 @@ const IDEAS = [
   },
 ];
 
+// Single source for the visible FAQ and the FAQPage JSON-LD below, so the
+// structured data always matches the page content (a Google requirement).
+const FAQS = [
+  {
+    question: "What school fundraisers have no upfront cost?",
+    answer:
+      "The ones on this list: a coloring book fundraiser (local sponsors pay for printing), a read-a-thon (pledges only), restaurant give-back nights, and used book sales all start at zero dollars. Avoid anything that asks the school to buy inventory before it sells.",
+  },
+  {
+    question: "What is the best time of year for a school fundraiser?",
+    answer:
+      "Fall, September through November, is the biggest window: back-to-school energy, book fairs, and fall festivals are already on the calendar. A second window opens in February and March around Read Across America and March is Reading Month. Whichever you pick, start planning about a month ahead.",
+  },
+  {
+    question: "How can a school fundraise without selling products to families?",
+    answer:
+      "Use sponsors or pledges instead of products. In a coloring book fundraiser, local businesses fund the book and families buy a keepsake their own child made. Read-a-thons and fun runs run on pledges. Restaurant nights turn a regular dinner out into a donation.",
+  },
+  {
+    question: "Which fundraisers take the least volunteer effort?",
+    answer:
+      "The low-effort tier of this list: a coloring book fundraiser, restaurant give-back nights, and spirit wear pre-orders. They need coordination, not an army. Save the high-effort events, like a community yard sale, for years when your PTA bench is deep.",
+  },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer },
+  })),
+};
+
 export default function FundraiserIdeas() {
   return (
-    <ContentPage
+    <>
+      <JsonLd data={faqJsonLd} />
+      <ContentPage
       kicker="For teachers and PTA groups"
       title="12 no-cost school fundraiser ideas"
       lede="Fundraisers that don't ask families to buy wrapping paper. Every idea below costs nothing up front — ranked by how much effort it asks of your volunteers."
@@ -119,6 +158,17 @@ export default function FundraiserIdeas() {
         Whatever you choose, start with what your families will actually enjoy.
         The best fundraiser is the one people look forward to next year.
       </p>
-    </ContentPage>
+
+      <h2>Frequently asked questions</h2>
+      <div className={pageStyles.faq}>
+        {FAQS.map((item) => (
+          <details key={item.question}>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+      </ContentPage>
+    </>
   );
 }
