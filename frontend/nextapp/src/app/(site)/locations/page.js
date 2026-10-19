@@ -87,6 +87,29 @@ export default function LocationsIndex() {
         Visits and school signups on those pages tell us where demand is
         real, and that ranking decides where we expand next.
       </p>
+      <p>
+        Five state pages are drawing early interest:{" "}
+        <Link href="/locations/rhode-island">
+          coloring book fundraiser in Rhode Island
+        </Link>
+        ,{" "}
+        <Link href="/locations/arizona">
+          coloring book fundraiser in Arizona
+        </Link>
+        ,{" "}
+        <Link href="/locations/california">
+          coloring book fundraiser in California
+        </Link>
+        ,{" "}
+        <Link href="/locations/colorado">
+          coloring book fundraiser in Colorado
+        </Link>
+        , and{" "}
+        <Link href="/locations/connecticut">
+          coloring book fundraiser in Connecticut
+        </Link>
+        .
+      </p>
       {REGIONS.map((region) => (
         <div key={region}>
           <h3>{region}</h3>
