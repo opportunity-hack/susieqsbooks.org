@@ -4,9 +4,9 @@ import JsonLd from "@/components/JsonLd";
 import pageStyles from "@/components/content-page/content-page.module.css";
 
 export const metadata = {
-  title: "Coloring Book Fundraiser for Schools",
+  title: "Coloring Book Fundraiser for Schools - Fundraising Coloring Books",
   description:
-    "How a coloring book fundraiser works: students draw, their art becomes a printed book, and sponsors cover the printing costs, so the school pays nothing.",
+    "Looking for a catalog fundraiser for my school? Students draw the art, sponsors cover printing, and the school pays nothing while keeping the proceeds.",
   alternates: { canonical: "/resources/coloring-book-fundraiser" },
 };
 
@@ -158,6 +158,39 @@ export default function ColoringBookFundraiserGuide() {
           start about a month ahead: classrooms need one to two weeks to
           draw and upload, and the rest is production.
         </p>
+
+        <h2>Coloring book fundraisers by state</h2>
+        <p>
+          Interest is coming in from schools well beyond Phoenix and
+          Michigan. If you are planning ahead, start with your state page:
+        </p>
+        <ul>
+          <li>
+            <Link href="/locations/rhode-island">
+              Coloring book fundraiser in Rhode Island
+            </Link>
+          </li>
+          <li>
+            <Link href="/locations/arizona">
+              Coloring book fundraiser in Arizona
+            </Link>
+          </li>
+          <li>
+            <Link href="/locations/california">
+              Coloring book fundraiser in California
+            </Link>
+          </li>
+          <li>
+            <Link href="/locations/colorado">
+              Coloring book fundraiser in Colorado
+            </Link>
+          </li>
+          <li>
+            <Link href="/locations/connecticut">
+              Coloring book fundraiser in Connecticut
+            </Link>
+          </li>
+        </ul>
 
         <h2>Tips for a great classroom book</h2>
         <ul>
