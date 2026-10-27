@@ -191,6 +191,13 @@ export default function ColoringBookFundraiserGuide() {
             </Link>
           </li>
         </ul>
+        <p>
+          Connecticut is drawing early searches of its own. Its{" "}
+          <Link href="/locations/connecticut">
+            Connecticut coloring book fundraiser
+          </Link>{" "}
+          page is where Connecticut teachers and PTA groups join the list.
+        </p>
 
         <h2>Tips for a great classroom book</h2>
         <ul>
