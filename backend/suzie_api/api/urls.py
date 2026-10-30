@@ -1,6 +1,6 @@
 from api.views import NonProfitsViewSet, DrawingsViewSet, BooksViewSet, SponsorViewSet, \
     UserRegistrationView, UserLoginView, UserListView, SponsorImageViewSet, SponsorPayAPIView, CreateDrawingsViewSet, GenerateBooksView, \
-    SchoolRequestView
+    SchoolRequestView, SchoolSummaryView
 from django.urls import include, path
 from rest_framework import routers
 from rest_framework_simplejwt import views as jwt_views
@@ -24,4 +24,5 @@ urlpatterns = [
     path('sponsor_pay', SponsorPayAPIView.as_view(), name='sponsor_pay'),
     path('generate_book', GenerateBooksView.as_view(), name='generate_book'),
     path('school_request', SchoolRequestView.as_view(), name='school_request'),
+    path('school_summary', SchoolSummaryView.as_view(), name='school_summary'),
 ]

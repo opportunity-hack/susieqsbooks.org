@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import styles from "./page.module.css";
 import UploadDrawingForm from "@/components/upload-drawing-form/UploadDrawingForm";
 
@@ -24,7 +25,9 @@ export default function DrawingsPage() {
         </p>
       </header>
 
-      <UploadDrawingForm />
+      <Suspense fallback={<p>Loading the upload form...</p>}>
+        <UploadDrawingForm />
+      </Suspense>
 
       <section className={styles.nextSteps} aria-label="What happens next">
         <h2 className={styles.nextTitle}>What happens next</h2>

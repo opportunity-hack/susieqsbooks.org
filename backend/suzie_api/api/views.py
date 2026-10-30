@@ -1,4 +1,5 @@
 import logging
+import re
 import resend
 
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -482,3 +483,138 @@ class UserListView(APIView):
             'users': serializer.data
         }
         return Response(response, status=status.HTTP_200_OK)
+
+
+def slugify_name(value):
+    """URL slug for school/grade names. Must match frontend src/lib/classrooms.js slugify."""
+    value = (value or "").lower()
+    value = re.sub(r"[^a-z0-9]+", "-", value)
+    return value.strip("-")
+
+
+class SchoolSummaryView(APIView):
+    """Public read-only rollup of one school's drawings.
+
+    GET /api/school_summary/?school=<school-slug>
+      -> { school, classes: [{ grade, years: [{ year, drawing_count, books }] }] },
+         years sorted most-recent-first. Powers the school archive page.
+
+    GET /api/school_summary/?school=<school-slug>&grade=<grade-slug>&year=<yyyy>
+      -> { school, grade, year, drawing_count, drawings, books }. Powers a
+         classroom page (its printable flier and upload-prefill flow).
+
+    Slugs are compared against slugify_name(school)/slugify_name(grade) so the
+    frontend can build stable URLs from the plain-text strings the drawings
+    table already stores. No new tables, no migrations.
+    """
+    permission_classes = (AllowAny,)
+
+    def _books_for_drawings(self, drawing_ids):
+        if not drawing_ids:
+            return []
+        qs = Books.objects.filter(drawings__in=drawing_ids).distinct()
+        return [
+            {
+                "id": b.id,
+                "name": b.name,
+                "cover_url": b.cover_url,
+                "is_published": b.is_published,
+            }
+            for b in qs.order_by("id")
+        ]
+
+    def get(self, request):
+        school_slug = (request.query_params.get("school") or "").strip()
+        if not school_slug:
+            return Response(
+                {"message": "Missing required query param: school"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        drawings = (
+            Drawings.objects.filter(is_active=True)
+            .exclude(school__isnull=True)
+            .exclude(school__exact="")
+            .order_by("id")
+        )
+        # Small dataset (a school fundraiser nonprofit); slug matching in Python
+        # keeps the plain-string school column free of a new slug column.
+        matches = [d for d in drawings if slugify_name(d.school) == school_slug]
+        if not matches:
+            return Response({"school": None, "classes": []})
+
+        school_name = matches[0].school
+        grade_slug = (request.query_params.get("grade") or "").strip()
+        year_param = (request.query_params.get("year") or "").strip()
+
+        if grade_slug or year_param:
+            if not (grade_slug and year_param):
+                return Response(
+                    {"message": "grade and year must be provided together"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+            try:
+                year = int(year_param)
+            except ValueError:
+                return Response(
+                    {"message": "year must be a number"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+            rows = [
+                d
+                for d in matches
+                if slugify_name(d.grade or "") == grade_slug
+                and d.created_on
+                and d.created_on.year == year
+            ]
+            grade_name = next(
+                (d.grade for d in rows), None
+            ) or next(
+                (d.grade for d in matches if slugify_name(d.grade or "") == grade_slug),
+                grade_slug,
+            )
+            return Response(
+                {
+                    "school": school_name,
+                    "grade": grade_name,
+                    "year": year,
+                    "drawing_count": len(rows),
+                    "drawings": [
+                        {
+                            "id": d.id,
+                            "subject": d.subject,
+                            "created_by": d.created_by,
+                            "url": d.ai_creative_url or d.creative_url,
+                            "created_on": d.created_on.strftime("%Y-%m-%d")
+                            if d.created_on
+                            else None,
+                        }
+                        for d in rows
+                    ],
+                    "books": self._books_for_drawings([d.id for d in rows]),
+                }
+            )
+
+        classes = {}
+        for d in matches:
+            grade = d.grade or "No grade listed"
+            year = d.created_on.year if d.created_on else None
+            bucket = classes.setdefault(grade, {})
+            cell = bucket.setdefault(year, {"drawing_count": 0, "drawing_ids": []})
+            cell["drawing_count"] += 1
+            cell["drawing_ids"].append(d.id)
+
+        class_list = []
+        for grade, years in classes.items():
+            year_list = []
+            for year in sorted(years.keys(), key=lambda y: (y is None, -(y or 0))):
+                cell = years[year]
+                year_list.append(
+                    {
+                        "year": year,
+                        "drawing_count": cell["drawing_count"],
+                        "books": self._books_for_drawings(cell["drawing_ids"]),
+                    }
+                )
+            class_list.append({"grade": grade, "years": year_list})
+        return Response({"school": school_name, "classes": class_list})

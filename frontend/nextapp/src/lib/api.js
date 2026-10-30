@@ -49,6 +49,16 @@ export const deleteBook = (id) => api.delete(`/api/books/${id}/`);
 
 export const generateBook = (id) => api.post("/api/generate_book", { id });
 
+// Public classroom/school rollups for the teacher onboarding flow.
+// school is a URL slug (see src/lib/classrooms.js slugify); grade and year
+// are optional and narrow the response to one classroom.
+export const getSchoolSummary = ({ school, grade, year }) => {
+  const params = new URLSearchParams({ school });
+  if (grade) params.set("grade", grade);
+  if (year) params.set("year", String(year));
+  return api.get(`/api/school_summary/?${params.toString()}`);
+};
+
 export const sponsorPay = (formData) => api.post("/api/sponsor_pay", formData);
 
 export const requestSchool = (data) => api.post("/api/school_request", data);

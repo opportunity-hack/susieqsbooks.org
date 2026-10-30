@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Select, Text, TextInput } from "@mantine/core";
 import { SCHOOL_GROUPS, SCHOOL_NOT_LISTED } from "@/data/schools";
@@ -18,12 +18,32 @@ const curatedData = [...SCHOOL_GROUPS, somewhereElse];
 // and the researched book-fair schools). Typing 2+ characters searches the
 // full NCES index for the nine covered states via /api/schools, so any
 // public elementary school there can be picked even if it is not curated.
-export default function SchoolSelect({ onChange, error, size = "lg" }) {
+export default function SchoolSelect({ onChange, error, size = "lg", initialValue = "" }) {
   const [choice, setChoice] = useState(null);
   const [customSchool, setCustomSchool] = useState("");
   const [data, setData] = useState(curatedData);
   const requestRef = useRef(0);
   const timerRef = useRef(null);
+  const appliedInitialRef = useRef(false);
+
+  // Prefill support for the classroom upload flow: /drawings?school=...
+  // A curated value selects the option; anything else drops into the
+  // "My school isn't listed" escape hatch so the exact string is kept.
+  useEffect(() => {
+    if (appliedInitialRef.current || !initialValue) return;
+    appliedInitialRef.current = true;
+    const known = curatedData.some((group) =>
+      group.items?.includes(initialValue)
+    );
+    if (known) {
+      setChoice(initialValue);
+      onChange(initialValue);
+    } else {
+      setChoice(SCHOOL_NOT_LISTED);
+      setCustomSchool(initialValue);
+      onChange(initialValue);
+    }
+  }, [initialValue, onChange]);
 
   const handleSearchChange = (term) => {
     const q = (term || "").trim();

@@ -24,6 +24,13 @@
   color: var(--ink);
 }
 
+.heroImage {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
 /* crayon-swipe highlight behind the key phrase */
 .heroHighlight {
   background-image: linear-gradient(

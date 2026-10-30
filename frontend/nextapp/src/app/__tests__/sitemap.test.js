@@ -26,7 +26,11 @@ describe("sitemap", () => {
     }
   });
 
-  it("totals 61 URLs (11 core + 50 feeler states)", () => {
-    expect(entries).toHaveLength(61);
+  it("totals 62 URLs (12 core + 50 feeler states)", () => {
+    expect(entries).toHaveLength(62);
+  });
+
+  it("lists the teachers quick-start page", () => {
+    expect(urls).toContain("https://www.susieqsbooks.org/teachers");
   });
 });
