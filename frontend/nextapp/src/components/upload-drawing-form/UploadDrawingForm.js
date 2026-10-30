@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button, TextInput, Select, Text, Group, rem, CloseButton } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
@@ -50,6 +51,19 @@ export default function UploadDrawingForm() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [submittedSchool, setSubmittedSchool] = useState("");
   const formTopRef = useRef(null);
+  const searchParams = useSearchParams();
+  const appliedPrefillRef = useRef(false);
+
+  // Classroom flow: /drawings?school=<name>&grade=<grade> pre-fills the form
+  // so families landing from a classroom flier have nothing to figure out.
+  useEffect(() => {
+    if (appliedPrefillRef.current) return;
+    appliedPrefillRef.current = true;
+    const prefillSchool = (searchParams?.get("school") || "").trim();
+    const prefillGrade = (searchParams?.get("grade") || "").trim();
+    if (prefillSchool) setSchool(prefillSchool);
+    if (prefillGrade && GRADES.includes(prefillGrade)) setGrade(prefillGrade);
+  }, [searchParams]);
 
   useEffect(() => {
     setCaptchaValue(generateCaptcha());
@@ -221,6 +235,7 @@ export default function UploadDrawingForm() {
       />
 
       <SchoolSelect
+        initialValue={school}
         onChange={(value) => {
           setSchool(value);
           clearError("school");

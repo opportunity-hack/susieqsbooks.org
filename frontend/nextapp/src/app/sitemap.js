@@ -24,6 +24,12 @@ export default function sitemap() {
       priority: 0.7,
     },
     {
+      url: `${base}/teachers`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${base}/locations`,
       lastModified,
       changeFrequency: "monthly",

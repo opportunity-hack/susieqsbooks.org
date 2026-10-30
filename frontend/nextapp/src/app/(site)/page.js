@@ -1,6 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./page.module.css";
-import HeroDoodle from "@/components/landing/HeroDoodle";
 import JsonLd from "@/components/JsonLd";
 import { FAQ_ITEMS } from "@/data/faq";
 
@@ -57,7 +57,7 @@ export default function Home() {
             need.
           </p>
           <div className={styles.heroCtas}>
-            <Link href="/drawings" className={styles.primaryCta}>
+            <Link href="/teachers" className={styles.primaryCta}>
               Start with your class
             </Link>
             <Link href="/sponsor" className={styles.secondaryCta}>
@@ -65,7 +65,14 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        <HeroDoodle />
+        <Image
+          src="/hero-drawing-to-coloring-book.webp"
+          alt="A child's colorful crayon drawing of a house and sun next to the same drawing transformed into a clean black-and-white coloring book page"
+          width={1920}
+          height={1280}
+          priority
+          className={styles.heroImage}
+        />
       </section>
 
       {/* How it works */}
@@ -109,7 +116,7 @@ export default function Home() {
           founding schools in Warren and Sterling Heights, Michigan.
         </p>
         <div className={styles.teacherCtas}>
-          <Link href="/drawings" className={styles.primaryCta}>
+          <Link href="/teachers" className={styles.primaryCta}>
             Start with your class
           </Link>
           <Link href="/add-school" className={styles.secondaryCta}>
