@@ -6,7 +6,7 @@ import pageStyles from "@/components/content-page/content-page.module.css";
 export const metadata = {
   title: "Coloring Book Fundraiser for Schools - Fundraising Coloring Books",
   description:
-    "Looking for a catalog fundraiser for my school? Students draw the art, sponsors cover printing, and the school pays nothing while keeping the proceeds.",
+    "Looking for a catalog fundraiser for my school? Students draw the art, sponsors cover printing, and the school pays nothing. Start your book today.",
   alternates: { canonical: "/resources/coloring-book-fundraiser" },
 };
 

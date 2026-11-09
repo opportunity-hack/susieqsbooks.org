@@ -28,6 +28,31 @@ describe("state feeler page metadata", () => {
   });
 });
 
+describe("Maryland St. Michaels section", () => {
+  it("shows the fundraising printing section on the Maryland page", () => {
+    render(<StateFeelerPage params={{ state: "maryland" }} />);
+    expect(
+      screen.getByRole("heading", {
+        name: /fundraising printing in st\. michaels, md/i,
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/talbot county/i)).toBeInTheDocument();
+    // Maryland stays variant B: offer-first page with the form.
+    expect(
+      screen.getByRole("button", { name: "Count us in" }),
+    ).toBeInTheDocument();
+  });
+
+  it("does not show the section on other variant B states (Texas)", () => {
+    render(<StateFeelerPage params={{ state: "texas" }} />);
+    expect(
+      screen.queryByRole("heading", {
+        name: /fundraising printing in st\. michaels/i,
+      }),
+    ).not.toBeInTheDocument();
+  });
+});
+
 describe("variant rendering", () => {
   it("renders the simple offer-first page with the form for variant B states (Texas)", () => {
     render(<StateFeelerPage params={{ state: "texas" }} />);
