@@ -7,7 +7,7 @@ export const metadata = {
   title:
     "School Fundraiser Ideas That Cost Nothing: Auctions, Yearbooks & Coloring Book Fundraisers",
   description:
-    "School fundraiser ideas that cost nothing up front: no-cost auctions, yearbook and coloring book fundraisers, read-a-thons and more, ranked by effort.",
+    "School fundraiser ideas that cost nothing up front: no-cost auctions, yearbook and coloring book fundraisers, read-a-thons and more. Pick one and start.",
   alternates: { canonical: "/resources/school-fundraiser-ideas" },
 };
 

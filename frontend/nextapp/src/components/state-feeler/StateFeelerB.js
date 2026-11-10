@@ -57,6 +57,22 @@ export default function StateFeelerB({ state }) {
           school wants in, that is what counts.
         </p>
 
+        {state.slug === "maryland" && (
+          <>
+            <h2>Fundraising printing in St. Michaels, MD</h2>
+            <p>
+              Looking for fundraising printing in St. Michaels? The book is
+              a real printed book, not a download. Local sponsors pay for
+              the print run, so your school pays nothing for printing.
+            </p>
+            <p>
+              Schools in St. Michaels and across Talbot County join the same
+              way as any Maryland school: fill out the form below. When
+              enough Maryland schools sign up, we start printing there.
+            </p>
+          </>
+        )}
+
         <h2>Tell us your school wants in</h2>
         <p>
           We are new in {state.name}, and schools are signing up now. When
