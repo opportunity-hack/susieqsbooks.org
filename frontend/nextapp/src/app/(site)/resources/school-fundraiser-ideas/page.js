@@ -212,7 +212,18 @@ export default function FundraiserIdeas() {
         <Link href="/locations/district-of-columbia">
           school fundraisers in Washington, DC
         </Link>
-        , one of the newest areas on our map.
+        , one of the newest areas on our map. We are lining up new areas
+        now: a{" "}
+        <Link href="/locations/maryland">
+          coloring book fundraiser in Maryland
+        </Link>
+        , a{" "}
+        <Link href="/locations/connecticut">
+          coloring book fundraiser in Connecticut
+        </Link>
+        , and a{" "}
+        <Link href="/locations/texas">coloring book fundraiser in Texas</Link>
+        .
       </p>
 
       <h2>Frequently asked questions</h2>
