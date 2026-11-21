@@ -28,6 +28,30 @@ describe("state feeler page metadata", () => {
   });
 });
 
+describe("Maryland metadata override", () => {
+  it("titles the Maryland page for the St. Michaels printing query", async () => {
+    const meta = await generateMetadata({ params: { state: "maryland" } });
+    expect(meta.title).toBe(
+      "Maryland Coloring Book Fundraiser - St. Michaels Printing",
+    );
+    expect(meta.title.length).toBeLessThanOrEqual(60);
+    expect(meta.description).toMatch(/st\. michaels/i);
+    expect(meta.description).toMatch(/printed book/i);
+    expect(meta.description.length).toBeLessThanOrEqual(155);
+    expect(meta.alternates.canonical).toBe("/locations/maryland");
+  });
+
+  it("leaves other states on the unchanged template (Texas)", async () => {
+    const meta = await generateMetadata({ params: { state: "texas" } });
+    expect(meta.title).toBe("Texas School Coloring Book Fundraiser");
+    expect(meta.description).toBe(
+      "Bring a free coloring book fundraiser to Texas schools. " +
+        "Student drawings become a printed book, funded by local sponsors. " +
+        "Add your school.",
+    );
+  });
+});
+
 describe("Maryland St. Michaels section", () => {
   it("shows the fundraising printing section on the Maryland page", () => {
     render(<StateFeelerPage params={{ state: "maryland" }} />);

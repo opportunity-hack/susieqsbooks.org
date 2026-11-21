@@ -15,6 +15,23 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const state = getStateBySlug(params.state);
   if (!state) return {};
+  // Maryland only: the Nov 16 Search Console check showed the single query
+  // "fundraising printing st michaels md" driving all of Maryland's
+  // impressions (131 of 132), while the old title named neither St. Michaels
+  // nor printing. This override names both. It changes metadata only: the
+  // variant B page structure and form are untouched. A/B note: this is a
+  // Maryland-only change made Nov 19, 2026, so the Dec 12 formal read
+  // should flag or exclude Maryland's post-change data.
+  if (state.slug === "maryland") {
+    return {
+      title: "Maryland Coloring Book Fundraiser - St. Michaels Printing",
+      description:
+        "Bring a free coloring book fundraiser to Maryland schools. " +
+        "Student art becomes a printed book in St. Michaels, funded by local sponsors. " +
+        "Add your school.",
+      alternates: { canonical: "/locations/maryland" },
+    };
+  }
   return {
     title: `${state.name} School Coloring Book Fundraiser`,
     description:
