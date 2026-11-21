@@ -190,6 +190,11 @@ export default function ColoringBookFundraiserGuide() {
               Coloring book fundraiser in Connecticut
             </Link>
           </li>
+          <li>
+            <Link href="/locations/maryland">
+              Coloring book fundraiser in Maryland
+            </Link>
+          </li>
         </ul>
         <p>
           Connecticut is drawing early searches of its own. Its{" "}

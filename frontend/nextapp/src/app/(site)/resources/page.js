@@ -61,6 +61,23 @@ export default function ResourcesIndex() {
         </Link>
         .
       </p>
+
+      <h2>Where we are headed</h2>
+      <p>
+        Schools in new areas are signing up now. See the{" "}
+        <Link href="/locations/maryland">
+          coloring book fundraiser in Maryland
+        </Link>
+        , the{" "}
+        <Link href="/locations/connecticut">
+          coloring book fundraiser in Connecticut
+        </Link>
+        , and the{" "}
+        <Link href="/locations/texas">
+          coloring book fundraiser in Texas
+        </Link>
+        .
+      </p>
     </ContentPage>
   );
 }
